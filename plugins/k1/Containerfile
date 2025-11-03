@@ -2,11 +2,9 @@ FROM registry.access.redhat.com/ubi9/go-toolset:9.6 AS builder
 
 COPY ./src .
 
-RUN go mod init k1 && \
-    go mod tidy && \
-    go build .
+RUN go build k1.go
 
-FROM registry.access.redhat.com/ubi9/ubi9-micro
+FROM registry.access.redhat.com/ubi9-micro
 
 COPY --from=builder /opt/app-root/src/k1 .
 
